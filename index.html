@@ -4,15 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Birthday Surprise</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial, sans-serif;
-background:#fff;
+font-family:Arial;
+background:linear-gradient(135deg,#ff9ecf,#ffd6e7);
 display:flex;
 justify-content:center;
 align-items:center;
@@ -26,29 +25,30 @@ padding:20px;
 }
 
 h2{
-color:#333;
+color:#5a2a5a;
 }
 
 button{
 margin-top:20px;
 padding:12px 25px;
 border:none;
-border-radius:30px;
-font-size:16px;
-background:linear-gradient(45deg,#ff4da6,#7a5cff);
+border-radius:25px;
+background:#ff4da6;
 color:white;
+font-size:16px;
 cursor:pointer;
 }
 
 button:hover{
-opacity:0.9;
+background:#ff2f92;
 }
 
 .banner{
-font-size:30px;
+font-size:32px;
 margin-top:20px;
 display:none;
-color:#ff4da6;
+color:#ff0066;
+font-weight:bold;
 }
 
 img{
@@ -56,7 +56,25 @@ width:220px;
 border-radius:20px;
 margin-top:20px;
 display:none;
-box-shadow:0 0 20px rgba(0,0,0,0.2);
+box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+.cake{
+font-size:70px;
+display:none;
+margin-top:20px;
+}
+
+.balloon{
+position:absolute;
+bottom:-100px;
+font-size:30px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+100%{transform:translateY(-110vh);}
 }
 
 .message{
@@ -64,19 +82,10 @@ display:none;
 margin-top:20px;
 font-size:17px;
 line-height:1.6;
-color:#444;
-}
-
-.balloon{
-position:absolute;
-bottom:-100px;
-font-size:28px;
-animation:float 6s linear infinite;
-}
-
-@keyframes float{
-0%{transform:translateY(0);}
-100%{transform:translateY(-110vh);}
+color:#333;
+background:white;
+padding:15px;
+border-radius:15px;
 }
 
 </style>
@@ -88,7 +97,7 @@ animation:float 6s linear infinite;
 <div class="container">
 
 <div id="s1">
-<h2>✨ It's Your Special Day Yeyey! ✨</h2>
+<h2>It's Your Special Day Yeyey! 🎉</h2>
 <button onclick="next(2)">Next</button>
 </div>
 
@@ -116,11 +125,11 @@ animation:float 6s linear infinite;
 </div>
 
 <div id="s7" style="display:none">
-<button onclick="fly()">Fly the Balloons</button>
+<button onclick="balloons()">Fly the Balloons</button>
 </div>
 
 <div id="s8" style="display:none">
-<button onclick="next(9)">Let's Cut the Cake Madam Ji 🎂</button>
+<button onclick="cake()">Let's Cut the Cake 🎂</button>
 </div>
 
 <div id="s9" style="display:none">
@@ -133,27 +142,21 @@ animation:float 6s linear infinite;
 
 <img id="photo" src="chiku.png">
 
+<div class="cake" id="cake">🎂</div>
+
 <div class="message" id="msg">
 
 <b>Future Doctor in the Making 👩‍⚕️</b><br><br>
 
-Dear Chiku,<br><br>
-
 Today is a very special day because someone truly amazing was born.<br><br>
 
-I know you dream of becoming a doctor one day,
-someone who will help people, heal them, and make the world a better place.
-And honestly, the kindness and strength you have already show
-that you are going to be an incredible doctor.<br><br>
+I hope this birthday brings you lots of happiness,
+beautiful memories, and all the things that make you smile.<br><br>
 
-I hope this birthday brings you happiness,
-beautiful memories, and many steps closer to your dreams.<br><br>
+You deserve all the good things in life and I hope
+this year becomes one of the best chapters of your story.<br><br>
 
-Keep believing in yourself,
-keep shining,
-and never stop chasing what your heart wants.<br><br>
-
-Happy Birthday ✨
+Enjoy your day and keep shining always ✨
 
 </div>
 
@@ -167,8 +170,8 @@ Happy Birthday ✨
 
 function next(n){
 for(let i=1;i<=9;i++){
-let s=document.getElementById("s"+i);
-if(s) s.style.display="none";
+let el=document.getElementById("s"+i);
+if(el) el.style.display="none";
 }
 document.getElementById("s"+n).style.display="block";
 }
@@ -184,7 +187,7 @@ document.getElementById("photo").style.display="block";
 next(7);
 }
 
-function fly(){
+function balloons(){
 
 for(let i=0;i<20;i++){
 let b=document.createElement("div");
@@ -195,6 +198,11 @@ document.body.appendChild(b);
 }
 
 next(8);
+}
+
+function cake(){
+document.getElementById("cake").style.display="block";
+next(9);
 }
 
 function showMessage(){
