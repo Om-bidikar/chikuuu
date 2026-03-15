@@ -3,107 +3,80 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>A Special Surprise</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Birthday Surprise</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial;
-background:black;
-color:white;
+font-family:Arial, sans-serif;
+background:#fff;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
 text-align:center;
-overflow:hidden;
 }
 
-/* intro screen */
-
-#intro{
-margin-top:200px;
+.container{
+max-width:420px;
+padding:20px;
 }
 
-#intro h1{
-font-size:50px;
-color:#ff4da6;
-}
-
-#intro p{
-font-size:28px;
+h2{
+color:#333;
 }
 
 button{
-padding:15px 30px;
-font-size:20px;
+margin-top:20px;
+padding:12px 25px;
 border:none;
-border-radius:10px;
-background:#ff4da6;
+border-radius:30px;
+font-size:16px;
+background:linear-gradient(45deg,#ff4da6,#7a5cff);
 color:white;
 cursor:pointer;
 }
 
-/* birthday section */
-
-#main{
-display:none;
+button:hover{
+opacity:0.9;
 }
 
-h1{
-font-size:60px;
-margin-top:80px;
-color:#ff4da6;
-animation:glow 2s infinite alternate;
-}
-
-@keyframes glow{
-from{color:#ff4da6;}
-to{color:#ffff66;}
-}
-
-#countdown{
-font-size:26px;
+.banner{
+font-size:30px;
 margin-top:20px;
-}
-
-#gift{
-font-size:100px;
-cursor:pointer;
-margin-top:40px;
-}
-
-#typing{
-font-size:28px;
-margin-top:30px;
-color:#ff66cc;
-}
-
-#photo{
 display:none;
-margin-top:30px;
+color:#ff4da6;
 }
 
-#photo img{
-width:260px;
+img{
+width:220px;
 border-radius:20px;
-box-shadow:0 0 25px pink;
+margin-top:20px;
+display:none;
+box-shadow:0 0 20px rgba(0,0,0,0.2);
+}
+
+.message{
+display:none;
+margin-top:20px;
+font-size:17px;
+line-height:1.6;
+color:#444;
 }
 
 .balloon{
 position:absolute;
-bottom:-120px;
-font-size:40px;
-animation:float 7s linear infinite;
+bottom:-100px;
+font-size:28px;
+animation:float 6s linear infinite;
 }
 
 @keyframes float{
 0%{transform:translateY(0);}
-100%{transform:translateY(-120vh);}
-}
-
-.heart{
-position:absolute;
-color:red;
-font-size:20px;
-animation:float 6s linear infinite;
+100%{transform:translateY(-110vh);}
 }
 
 </style>
@@ -112,31 +85,79 @@ animation:float 6s linear infinite;
 
 <body>
 
-<div id="intro">
+<div class="container">
 
-<h1>It's Your Special Day 🎉</h1>
+<div id="s1">
+<h2>✨ It's Your Special Day Yeyey! ✨</h2>
+<button onclick="next(2)">Next</button>
+</div>
 
-<p>Look what I made for you...</p>
+<div id="s2" style="display:none">
+<h2>I wanted to make something special for you</h2>
+<button onclick="next(3)">Next</button>
+</div>
 
-<button onclick="start()">Click Here</button>
+<div id="s3" style="display:none">
+<h2>Do you wanna see what I made?</h2>
+<button onclick="next(4)">Yes!</button>
+</div>
+
+<div id="s4" style="display:none">
+<h2>Have a look at it Madam Ji</h2>
+<button onclick="next(5)">Lights On</button>
+</div>
+
+<div id="s5" style="display:none">
+<button onclick="playSong()">Play Music</button>
+</div>
+
+<div id="s6" style="display:none">
+<button onclick="decorate()">Decorate</button>
+</div>
+
+<div id="s7" style="display:none">
+<button onclick="fly()">Fly the Balloons</button>
+</div>
+
+<div id="s8" style="display:none">
+<button onclick="next(9)">Let's Cut the Cake Madam Ji 🎂</button>
+</div>
+
+<div id="s9" style="display:none">
+<button onclick="showMessage()">I Have a Message for You</button>
+</div>
+
+<div class="banner" id="banner">
+🎉 HAPPY BIRTHDAY 🎉
+</div>
+
+<img id="photo" src="chiku.png">
+
+<div class="message" id="msg">
+
+<b>Future Doctor in the Making 👩‍⚕️</b><br><br>
+
+Dear Chiku,<br><br>
+
+Today is a very special day because someone truly amazing was born.<br><br>
+
+I know you dream of becoming a doctor one day,
+someone who will help people, heal them, and make the world a better place.
+And honestly, the kindness and strength you have already show
+that you are going to be an incredible doctor.<br><br>
+
+I hope this birthday brings you happiness,
+beautiful memories, and many steps closer to your dreams.<br><br>
+
+Keep believing in yourself,
+keep shining,
+and never stop chasing what your heart wants.<br><br>
+
+Happy Birthday ✨
 
 </div>
 
-<div id="main">
-
-<h1>A Special Day Is Coming 🎂</h1>
-
-<div id="countdown"></div>
-
-<div id="gift" onclick="openGift()">🎁</div>
-
-<div id="typing"></div>
-
-<div id="photo">
-<img src="chiku.png">
-</div>
-
-<audio id="music">
+<audio id="song">
 <source src="sheky.mpeg" type="audio/mpeg">
 </audio>
 
@@ -144,111 +165,40 @@ animation:float 6s linear infinite;
 
 <script>
 
-function start(){
-
-document.getElementById("intro").style.display="none";
-
-document.getElementById("main").style.display="block";
-
+function next(n){
+for(let i=1;i<=9;i++){
+let s=document.getElementById("s"+i);
+if(s) s.style.display="none";
+}
+document.getElementById("s"+n).style.display="block";
 }
 
-/* countdown */
-
-let birthday=new Date("March 18, 2026 00:00:00").getTime();
-
-setInterval(function(){
-
-let now=new Date().getTime();
-
-let distance=birthday-now;
-
-let days=Math.floor(distance/(1000*60*60*24));
-
-let hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-
-let minutes=Math.floor((distance%(1000*60*60))/(1000*60));
-
-let seconds=Math.floor((distance%(1000*60))/1000);
-
-document.getElementById("countdown").innerHTML=
-days+" days "+hours+" hours "+minutes+" minutes "+seconds+" seconds";
-
-},1000);
-
-/* gift open */
-
-function openGift(){
-
-document.getElementById("music").play();
-
-document.getElementById("gift").innerHTML="🎂";
-
-typeMessage();
-
+function playSong(){
+document.getElementById("song").play();
+next(6);
 }
 
-/* typing effect */
-
-let text="Someone very special is celebrating today...";
-
-let i=0;
-
-function typeMessage(){
-
-if(i<text.length){
-
-document.getElementById("typing").innerHTML+=text.charAt(i);
-
-i++;
-
-setTimeout(typeMessage,70);
-
-}else{
-
-setTimeout(showPhoto,1500);
-
-}
-
-}
-
-/* show photo + animation */
-
-function showPhoto(){
-
+function decorate(){
+document.getElementById("banner").style.display="block";
 document.getElementById("photo").style.display="block";
-
-for(let i=0;i<40;i++){
-
-let balloon=document.createElement("div");
-
-balloon.className="balloon";
-
-balloon.innerHTML="🎈";
-
-balloon.style.left=Math.random()*100+"vw";
-
-balloon.style.animationDuration=(4+Math.random()*4)+"s";
-
-document.body.appendChild(balloon);
-
+next(7);
 }
 
-for(let i=0;i<40;i++){
+function fly(){
 
-let heart=document.createElement("div");
-
-heart.className="heart";
-
-heart.innerHTML="❤️";
-
-heart.style.left=Math.random()*100+"vw";
-
-heart.style.fontSize=(10+Math.random()*20)+"px";
-
-document.body.appendChild(heart);
-
+for(let i=0;i<20;i++){
+let b=document.createElement("div");
+b.className="balloon";
+b.innerHTML="🎈";
+b.style.left=Math.random()*100+"vw";
+document.body.appendChild(b);
 }
 
+next(8);
+}
+
+function showMessage(){
+document.getElementById("msg").style.display="block";
 }
 
 </script>
