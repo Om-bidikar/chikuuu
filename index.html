@@ -26,13 +26,13 @@ background:#ffd9ea;
 }
 
 .container{
-max-width:420px;
+max-width:360px;
 padding:20px;
 }
 
 button{
 margin-top:20px;
-padding:12px 24px;
+padding:12px 26px;
 border:none;
 border-radius:25px;
 background:#ff4da6;
@@ -45,8 +45,8 @@ cursor:pointer;
 
 #banner{
 display:none;
-width:300px;
-margin-top:20px;
+width:280px;
+margin:30px auto;
 animation:swing 3s infinite ease-in-out;
 }
 
@@ -61,6 +61,7 @@ animation:swing 3s infinite ease-in-out;
 .balloon{
 position:absolute;
 font-size:28px;
+opacity:0.9;
 animation:floatUp linear forwards;
 }
 
@@ -73,11 +74,20 @@ animation:floatUp linear forwards;
 
 #cake{
 display:none;
-width:220px;
+width:200px;
 margin-top:20px;
 }
 
-/* message */
+/* photo */
+
+#photo{
+display:none;
+width:240px;
+border-radius:15px;
+margin-top:20px;
+}
+
+/* message card */
 
 .message{
 display:none;
@@ -85,18 +95,11 @@ background:white;
 padding:20px;
 border-radius:15px;
 box-shadow:0 8px 25px rgba(0,0,0,0.25);
-max-width:320px;
+max-width:340px;
 margin-top:20px;
 max-height:70vh;
 overflow-y:auto;
 animation:fade 1s ease;
-}
-
-.message img{
-width:100%;
-border-radius:12px;
-margin-bottom:15px;
-object-fit:cover;
 }
 
 @keyframes fade{
@@ -122,6 +125,7 @@ animation:fall linear forwards;
 font-weight:bold;
 margin-top:10px;
 color:#444;
+font-size:14px;
 }
 
 </style>
@@ -135,11 +139,8 @@ color:#444;
 <!-- typing intro -->
 
 <div id="s1">
-
 <h2 id="typeText" style="color:white"></h2>
-
 <button id="startBtn" onclick="nextStep(2)" style="display:none">Next</button>
-
 </div>
 
 <div id="s2" style="display:none">
@@ -174,26 +175,28 @@ color:#444;
 </div>
 
 <div id="s9" style="display:none">
-<button onclick="messageIntro()">I have a message for you</button>
+<button onclick="showPhoto()">Wanna see cupcake? ❤️</button>
 </div>
 
 <div id="s10" style="display:none">
-<button onclick="showMessage()">Open the message ❤️</button>
+<button onclick="messageIntro()">I have a message for you</button>
+</div>
+
+<div id="s11" style="display:none">
+<button onclick="showMessage()">Open the message</button>
 </div>
 
 <img src="banner.png" id="banner">
-
 <img src="cake.png" id="cake">
+<img src="chiku.jpg" id="photo">
 
 <div id="ageCounter"></div>
 
 <div class="message" id="msg">
 
-<img src="chiku.jpg">
-
 <h3 style="color:#ff4da6;">To my sweet little cupcake ❤️</h3>
 
-<div style="color:#333;font-size:16px;line-height:1.6;">
+<div style="color:#333;font-size:15px;line-height:1.6;">
 
 Today is a very special day because someone truly amazing was born.<br><br>
 
@@ -219,33 +222,23 @@ Enjoy your day and keep shining always ✨
 
 /* typing effect */
 
-const message = "Hey Chiku... I made something special for you ❤️";
-
-let index = 0;
+const message="Hey Chiku... I made something special for you ❤️";
+let index=0;
 
 function typeEffect(){
-
-if(index < message.length){
-
-document.getElementById("typeText").innerHTML += message.charAt(index);
-
+if(index<message.length){
+document.getElementById("typeText").innerHTML+=message.charAt(index);
 index++;
-
 setTimeout(typeEffect,60);
-
-}
-else{
-
+}else{
 document.getElementById("startBtn").style.display="inline-block";
-
+}
 }
 
-}
-
-window.onload = typeEffect;
+window.onload=typeEffect;
 
 function nextStep(n){
-for(let i=1;i<=10;i++){
+for(let i=1;i<=11;i++){
 let s=document.getElementById("s"+i);
 if(s) s.style.display="none";
 }
@@ -272,16 +265,12 @@ function flyBalloons(){
 setInterval(()=>{
 
 let balloon=document.createElement("div");
-
 balloon.className="balloon";
-
 balloon.innerHTML="🎈";
 
 balloon.style.left=Math.random()*100+"vw";
-
-balloon.style.bottom="-50px";
-
-balloon.style.animationDuration=(4+Math.random()*4)+"s";
+balloon.style.bottom="-40px";
+balloon.style.animationDuration=(5+Math.random()*3)+"s";
 
 document.body.appendChild(balloon);
 
@@ -289,7 +278,7 @@ setTimeout(()=>{
 balloon.remove();
 },8000);
 
-},600);
+},700);
 
 nextStep(8);
 
@@ -300,8 +289,13 @@ document.getElementById("cake").style.display="block";
 nextStep(9);
 }
 
-function messageIntro(){
+function showPhoto(){
+document.getElementById("photo").style.display="block";
 nextStep(10);
+}
+
+function messageIntro(){
+nextStep(11);
 }
 
 function showMessage(){
@@ -309,17 +303,15 @@ function showMessage(){
 document.getElementById("msg").style.display="block";
 
 calculateAge();
-
 launchConfetti();
 
 }
 
 function launchConfetti(){
 
-for(let i=0;i<120;i++){
+for(let i=0;i<100;i++){
 
 let conf=document.createElement("div");
-
 conf.className="confetti";
 
 conf.style.left=Math.random()*100+"vw";
@@ -342,14 +334,10 @@ conf.remove();
 function calculateAge(){
 
 let birth=new Date("2007-03-18T00:00:00");
-
 let now=new Date();
-
 let diff=now-birth;
 
-let seconds=Math.floor(diff/1000);
-let minutes=Math.floor(seconds/60);
-let hours=Math.floor(minutes/60);
+let hours=Math.floor(diff/1000/60/60);
 let days=Math.floor(hours/24);
 
 let years=Math.floor(days/365.25);
