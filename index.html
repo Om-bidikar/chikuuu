@@ -48,14 +48,14 @@ cursor:pointer;
 .heart{
 position:absolute;
 font-size:24px;
-opacity:0.2;
+opacity:0.25;
 }
 
 /* banner */
 
 #banner{
 display:none;
-width:260px;
+width:300px;
 margin-top:20px;
 animation:swing 3s infinite ease-in-out;
 }
@@ -70,21 +70,24 @@ animation:swing 3s infinite ease-in-out;
 
 .balloon{
 position:absolute;
-bottom:-100px;
 font-size:28px;
-animation:float 6s linear infinite;
+animation:floatUp linear forwards;
 }
 
-@keyframes float{
-0%{transform:translateY(0);}
-100%{transform:translateY(-110vh);}
+@keyframes floatUp{
+0%{
+transform:translateY(0);
+}
+100%{
+transform:translateY(-120vh);
+}
 }
 
 /* cake */
 
 #cake{
 display:none;
-width:220px;
+width:240px;
 margin-top:20px;
 }
 
@@ -104,6 +107,12 @@ animation:fade 1s ease;
 @keyframes fade{
 from{opacity:0; transform:translateY(20px);}
 to{opacity:1; transform:translateY(0);}
+}
+
+#ageCounter{
+font-weight:bold;
+margin-top:10px;
+color:#444;
 }
 
 </style>
@@ -158,9 +167,11 @@ to{opacity:1; transform:translateY(0);}
 
 <img src="cake.png" id="cake">
 
+<div id="ageCounter"></div>
+
 <div class="message" id="msg">
 
-<img src="chiku.png" style="width:100%;border-radius:10px;margin-bottom:15px;">
+<img src="chiku.jpg" style="width:100%;border-radius:10px;margin-bottom:15px;">
 
 <h3 style="color:#ff4da6;">To my sweet little cupcake ❤️</h3>
 
@@ -212,17 +223,30 @@ document.getElementById("banner").style.display="block";
 nextStep(7);
 }
 
+/* improved balloons */
+
 function flyBalloons(){
 
-for(let i=0;i<15;i++){
-let b=document.createElement("div");
-b.className="balloon";
-b.innerHTML="🎈";
-b.style.left=Math.random()*100+"vw";
-document.body.appendChild(b);
+for(let i=0;i<20;i++){
+
+let balloon=document.createElement("div");
+
+balloon.className="balloon";
+
+balloon.innerHTML="🎈";
+
+balloon.style.left=Math.random()*100+"vw";
+
+balloon.style.bottom="-50px";
+
+balloon.style.animationDuration=(4+Math.random()*4)+"s";
+
+document.body.appendChild(balloon);
+
 }
 
 nextStep(8);
+
 }
 
 function showCake(){
@@ -231,18 +255,63 @@ nextStep(9);
 }
 
 function showMessage(){
+
 document.getElementById("msg").style.display="block";
+
+calculateAge();
+
 }
 
 function createHearts(){
-for(let i=0;i<20;i++){
+
+for(let i=0;i<25;i++){
+
 let h=document.createElement("div");
+
 h.className="heart";
+
 h.innerHTML="💗";
+
 h.style.left=Math.random()*100+"vw";
+
 h.style.top=Math.random()*100+"vh";
+
 document.body.appendChild(h);
+
 }
+
+}
+
+function calculateAge(){
+
+let birth=new Date("2007-03-18T00:00:00");
+
+let now=new Date();
+
+let diff=now-birth;
+
+let seconds=Math.floor(diff/1000);
+
+let minutes=Math.floor(seconds/60);
+
+let hours=Math.floor(minutes/60);
+
+let days=Math.floor(hours/24);
+
+let years=Math.floor(days/365.25);
+
+days-=Math.floor(years*365.25);
+
+let months=Math.floor(days/30.44);
+
+days-=Math.floor(months*30.44);
+
+hours=hours%24;
+
+document.getElementById("ageCounter").innerHTML=
+
+years+" years "+months+" months "+days+" days "+hours+" hours ago my princess was born ✨";
+
 }
 
 </script>
