@@ -2,15 +2,19 @@
 
 <html>
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>For My Chiku ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
 
 body{
 margin:0;
-font-family:Arial;
+font-family:'Poppins',sans-serif;
 height:100vh;
 display:flex;
 justify-content:center;
@@ -54,23 +58,48 @@ margin:15px auto;
 
 #cake{
 display:none;
-width:220px;
+width:240px;
 margin:15px auto;
 }
 
-/* cake pop animation */
-
 .pop{
-animation:cakePop 0.6s ease;
+animation:cakePop .6s ease;
 }
 
 @keyframes cakePop{
-0%{transform:scale(0.2)}
+0%{transform:scale(.2)}
 60%{transform:scale(1.2)}
 100%{transform:scale(1)}
 }
 
-/* popup */
+/* balloons */
+
+.balloon{
+position:absolute;
+font-size:28px;
+animation:floatUp 7s linear forwards,
+sway 2s ease-in-out infinite alternate;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(0)}
+100%{transform:translateY(-120vh)}
+}
+
+@keyframes sway{
+from{transform:translateX(-10px)}
+to{transform:translateX(10px)}
+}
+
+/* hearts */
+
+.heart{
+position:absolute;
+font-size:20px;
+animation:floatUp linear forwards;
+}
+
+/* popups */
 
 .popup{
 position:fixed;
@@ -80,13 +109,11 @@ transform:translate(-50%,-50%);
 background:white;
 padding:20px;
 border-radius:15px;
-box-shadow:0 10px 30px rgba(0,0,0,0.4);
+box-shadow:0 10px 30px rgba(0,0,0,.4);
 display:none;
 z-index:100;
 max-width:300px;
 }
-
-/* photo popup */
 
 #photoPopup img{
 width:240px;
@@ -107,44 +134,22 @@ max-width:340px;
 }
 
 .letter{
-background:white;
-padding:18px;
-border-radius:15px;
-box-shadow:0 10px 30px rgba(0,0,0,0.25);
-line-height:1.45;
+background:linear-gradient(135deg,#7b6cff,#a88cff);
+padding:25px;
+border-radius:18px;
+box-shadow:0 15px 40px rgba(0,0,0,.35);
+line-height:1.6;
 font-size:15px;
 max-height:80vh;
 overflow-y:auto;
+color:white;
 }
 
 .letter h2{
 margin-top:0;
-margin-bottom:10px;
+margin-bottom:12px;
 font-size:22px;
 }
-
-/* balloons */
-
-.balloon{
-position:absolute;
-font-size:28px;
-animation:floatUp linear forwards;
-}
-
-@keyframes floatUp{
-0%{transform:translateY(0)}
-100%{transform:translateY(-120vh)}
-}
-
-/* hearts */
-
-.heart{
-position:absolute;
-font-size:20px;
-animation:floatUp linear forwards;
-}
-
-/* confetti */
 
 .confetti{
 position:absolute;
@@ -232,35 +237,38 @@ animation:fall 4s linear infinite;
 
 <div class="letter">
 
-<h2>Dear Chiku 💖</h2>
+<h2>💖 Dear Chiku 💖</h2>
 
 <p>
 
 Out of all the days in the year, this one is special to me because it's the day you were born. 🎂✨
-And honestly, the world became a little more beautiful that day.
 
 <br><br>
 
-I just wanted to remind you how amazing you are — the way you smile, the way you care about people, and the way you bring happiness without even trying. 🌸
+The world became a little brighter that day.
+And honestly, anyone who gets to know you is lucky.
 
 <br><br>
 
-I hope this birthday brings you moments that make you laugh loudly, memories that stay with you forever, and dreams that slowly start coming true. 💫
+Your smile, your kindness, and the way you care about people makes you someone really special.
 
 <br><br>
 
-You deserve a life full of happiness, success, and peace.
-And I hope every year makes you stronger, brighter, and closer to everything you wish for.
+I hope this birthday fills your life with happiness, beautiful memories, and dreams slowly coming true. 💫
 
 <br><br>
 
-Happy Birthday, Chiku. 🎉
-Keep being the wonderful person you are.
+You deserve every good thing this world has to offer.
+
+<br><br>
+
+Happy Birthday Chiku 🎉
+Keep smiling always 💗
 
 </p>
 
 <p style="margin-top:15px;font-weight:bold;">
-— From Omii ❤️
+💗 From Omii 💗
 </p>
 
 </div>
@@ -268,11 +276,11 @@ Keep being the wonderful person you are.
 </div>
 
 <audio id="sheky">
-<source src="sheky.mpeg" type="audio/mpeg">
+<source src="sheky.mpeg">
 </audio>
 
 <audio id="pretty">
-<source src="pretty.mpeg" type="audio/mpeg">
+<source src="pretty.mpeg">
 </audio>
 
 </div>
@@ -423,6 +431,26 @@ setTimeout(()=>{c.remove()},4000);
 },150);
 
 }
+
+document.addEventListener("click",function(e){
+
+for(let i=0;i<6;i++){
+
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💗";
+
+heart.style.left=(e.clientX + Math.random()*40 -20)+"px";
+heart.style.top=(e.clientY)+"px";
+heart.style.animationDuration=(3+Math.random()*2)+"s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{heart.remove()},4000);
+
+}
+
+});
 
 </script>
 
