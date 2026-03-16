@@ -5,9 +5,10 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>For My Chiku ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
 
@@ -28,7 +29,7 @@ transition:background 2s;
 background:#ffd9ea;
 }
 
-/* magical glow at end */
+/* final glow */
 
 .finalGlow{
 background:#ffd9ea;
@@ -45,8 +46,10 @@ width:90%;
 max-width:360px;
 }
 
+/* buttons */
+
 button{
-margin-top:18px;
+margin-top:16px;
 padding:12px 26px;
 border:none;
 border-radius:30px;
@@ -97,7 +100,7 @@ animation:swingBanner 3s infinite alternate ease-in-out;
 #cake{
 display:none;
 width:220px;
-margin-top:40px;
+margin-top:30px;
 }
 
 .pop{
@@ -116,13 +119,18 @@ animation:cakePop .6s ease;
 position:fixed;
 font-size:32px;
 bottom:-60px;
-animation:balloonUp 10s linear forwards;
+animation:balloonUp 10s linear forwards, sway 3s ease-in-out infinite alternate;
 z-index:999;
 }
 
 @keyframes balloonUp{
 0%{transform:translateY(0)}
 100%{transform:translateY(-130vh)}
+}
+
+@keyframes sway{
+0%{margin-left:-10px;}
+100%{margin-left:10px;}
 }
 
 /* floating hearts */
@@ -188,21 +196,32 @@ border-radius:12px;
 margin-top:10px;
 }
 
+/* message page */
+
 #letterPage{
 display:none;
 position:fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-width:90%;
-max-width:340px;
+width:92%;
+max-width:360px;
 }
 
 .letter{
 background:linear-gradient(135deg,#7b6cff,#a88cff);
-padding:24px;
+padding:18px;
 border-radius:18px;
 color:white;
+line-height:1.45;
+font-size:14px;
+max-height:80vh;
+overflow:auto;
+}
+
+.handwriting{
+font-family:'Pacifico',cursive;
+font-size:22px;
 }
 
 </style>
@@ -216,7 +235,7 @@ color:white;
 <div class="container">
 
 <div id="s1">
-<h2 id="typing" style="color:white"></h2>
+<h2 id="typing" class="handwriting" style="color:white"></h2>
 <button id="startBtn" onclick="nextStep(2)" style="display:none">Next ❤️</button>
 </div>
 
@@ -273,7 +292,7 @@ color:white;
 <div id="letterPage">
 <div class="letter">
 
-<h2>💖 Dear Chiku 💖</h2>
+<h3>💖 Dear Chiku 💖</h3>
 
 <p>
 
@@ -282,7 +301,7 @@ Today is a very special day because someone truly amazing was born. 🎂✨
 <br><br>
 
 I hope this birthday brings you lots of happiness,
-beautiful memories, and all the things that make you smile.
+beautiful memories and all the things that make you smile.
 
 <br><br>
 
@@ -291,12 +310,13 @@ this year becomes one of the best chapters of your story.
 
 <br><br>
 
-May your dreams slowly turn into reality and may
-every step you take bring you closer to the beautiful future you deserve.
+May your dreams slowly turn into reality and every step
+you take bring you closer to the beautiful future you deserve.
 
 <br><br>
 
-Keep smiling, keep shining and never stop being the wonderful person you are.
+Keep smiling, keep shining and never stop being
+the wonderful person you are.
 
 <br><br>
 
@@ -305,7 +325,7 @@ I hope today becomes one of your happiest days 💗
 
 </p>
 
-<p><b>💗 From Omii 💗</b></p>
+<p style="margin-top:8px;font-weight:bold;">💗 From Omii 💗</p>
 
 </div>
 </div>
@@ -316,16 +336,15 @@ I hope today becomes one of your happiest days 💗
 
 <script>
 
-/* typing */
-
 const text="Hey Chiku... I made something special for you ❤️";
 let i=0;
+let balloonInterval;
 
 function typeText(){
 if(i<text.length){
 document.getElementById("typing").innerHTML+=text.charAt(i);
 i++;
-setTimeout(typeText,60);
+setTimeout(typeText,70);
 }else{
 document.getElementById("startBtn").style.display="inline-block";
 }
@@ -342,7 +361,7 @@ document.getElementById("s"+n).style.display="block";
 }
 
 function burstHearts(){
-for(let i=0;i<20;i++){
+for(let i=0;i<18;i++){
 let h=document.createElement("div");
 h.className="heart";
 h.innerHTML="💗";
@@ -354,7 +373,7 @@ setTimeout(()=>h.remove(),3000);
 }
 
 function createConfetti(){
-for(let i=0;i<80;i++){
+for(let i=0;i<70;i++){
 setTimeout(()=>{
 let c=document.createElement("div");
 c.className="confetti";
@@ -362,7 +381,7 @@ c.style.left=Math.random()*100+"vw";
 c.style.background="hsl("+Math.random()*360+",70%,60%)";
 document.body.appendChild(c);
 setTimeout(()=>c.remove(),4000);
-},i*60);
+},i*70);
 }
 }
 
@@ -374,7 +393,7 @@ h.innerHTML="💗";
 h.style.left=Math.random()*100+"vw";
 document.body.appendChild(h);
 setTimeout(()=>h.remove(),9000);
-},1500);
+},1800);
 }
 
 function lightsOn(){
@@ -408,9 +427,7 @@ function flyBalloons(){
 
 nextStep(8);
 
-for(let i=0;i<10;i++){
-
-setTimeout(()=>{
+balloonInterval=setInterval(()=>{
 
 let balloon=document.createElement("div");
 balloon.className="balloon";
@@ -422,9 +439,7 @@ document.body.appendChild(balloon);
 
 setTimeout(()=>balloon.remove(),10000);
 
-},i*500);
-
-}
+},800);
 
 }
 
@@ -439,8 +454,12 @@ cake.classList.add("pop");
 burstHearts();
 
 setTimeout(()=>{
+
+clearInterval(balloonInterval);
+
 document.getElementById("popupPhotoIntro").style.display="block";
-},4000);
+
+},9000);
 
 }
 
@@ -495,7 +514,10 @@ setTimeout(()=>h.remove(),3000);
 
 }
 
-document.addEventListener("click",e=>spawnHearts(e.clientX,e.clientY));
+document.addEventListener("click",e=>{
+if(e.target.tagName==="BUTTON") return;
+spawnHearts(e.clientX,e.clientY);
+});
 
 document.addEventListener("touchstart",e=>{
 if(e.target.tagName==="BUTTON") return;
