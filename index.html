@@ -5,6 +5,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>For My Chiku ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
@@ -14,14 +15,13 @@
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
+background:black;
+text-align:center;
+overflow:hidden;
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-text-align:center;
-background:black;
-overflow:hidden;
-transition:1s;
 }
 
 .pink{
@@ -34,8 +34,10 @@ max-width:360px;
 margin:auto;
 }
 
+/* buttons */
+
 button{
-margin-top:20px;
+margin-top:18px;
 padding:12px 26px;
 border:none;
 border-radius:30px;
@@ -49,38 +51,61 @@ cursor:pointer;
 
 #banner{
 display:none;
-width:350px;
-position:relative;
-top:-80px;
-margin-bottom:-40px;
+width:300px;
+position:absolute;
+top:40px;
+left:50%;
+transform:translateX(-50%);
 transform-origin:top center;
+z-index:5;
 }
+
+/* banner drop */
 
 .bannerDrop{
 animation:dropBanner .8s ease;
 }
 
 @keyframes dropBanner{
-0%{transform:translateY(-200px);opacity:0;}
-70%{transform:translateY(20px);}
-100%{transform:translateY(0);opacity:1;}
+0%{transform:translate(-50%,-200px);opacity:0;}
+70%{transform:translate(-50%,10px);}
+100%{transform:translate(-50%,0);opacity:1;}
 }
+
+/* banner swing */
 
 .bannerSwing{
 animation:swingBanner 3s ease-in-out infinite alternate;
 }
 
 @keyframes swingBanner{
-0%{transform:rotate(-4deg);}
-100%{transform:rotate(4deg);}
+0%{rotate:-4deg;}
+100%{rotate:4deg;}
+}
+
+/* blinking lights */
+
+.lights::before{
+content:"💡 💡 💡 💡 💡 💡 💡 💡";
+position:absolute;
+top:-20px;
+left:0;
+width:100%;
+font-size:20px;
+animation:blink 1s infinite alternate;
+}
+
+@keyframes blink{
+0%{opacity:.3;}
+100%{opacity:1;}
 }
 
 /* cake */
 
 #cake{
 display:none;
-width:260px;
-margin-top:10px;
+width:230px;
+margin-top:40px;
 }
 
 .pop{
@@ -132,22 +157,22 @@ padding:22px;
 border-radius:18px;
 box-shadow:0 15px 40px rgba(0,0,0,.35);
 display:none;
-z-index:100;
+z-index:10;
 max-width:300px;
 color:white;
 }
 
 #photoPopup img{
-width:240px;
-border-radius:14px;
+width:220px;
+border-radius:12px;
 margin-top:12px;
 }
 
-/* message page */
+/* message */
 
 #letterPage{
 display:none;
-position:absolute;
+position:fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
@@ -157,23 +182,15 @@ max-width:340px;
 
 .letter{
 background:linear-gradient(135deg,#7b6cff,#a88cff);
-padding:25px;
+padding:24px;
 border-radius:18px;
 box-shadow:0 15px 40px rgba(0,0,0,.35);
 line-height:1.6;
 font-size:15px;
 max-height:80vh;
-overflow-y:auto;
+overflow:auto;
 color:white;
 }
-
-.letter h2{
-margin-top:0;
-margin-bottom:10px;
-font-size:22px;
-}
-
-/* glow */
 
 .glow{
 animation:glowPink 2s infinite alternate;
@@ -203,6 +220,8 @@ animation:fall 4s linear infinite;
 </head>
 
 <body>
+
+<img src="banner.png" id="banner">
 
 <div class="container">
 
@@ -242,7 +261,6 @@ animation:fall 4s linear infinite;
 <button onclick="showCake()">Cut the Cake 🎂</button>
 </div>
 
-<img src="banner.png" id="banner">
 <img src="cake.png" id="cake">
 
 <div class="popup" id="popupPhotoIntro">
@@ -303,17 +321,13 @@ Keep smiling always 💗
 
 </div>
 
-<audio id="sheky">
-<source src="sheky.mpeg">
-</audio>
-
-<audio id="pretty">
-<source src="pretty.mpeg">
-</audio>
+<audio id="sheky"><source src="sheky.mpeg"></audio> <audio id="pretty"><source src="pretty.mpeg"></audio>
 
 </div>
 
 <script>
+
+/* typing */
 
 const text="Hey Chiku... I made something special for you ❤️";
 let i=0;
@@ -330,6 +344,8 @@ document.getElementById("startBtn").style.display="inline-block";
 
 window.onload=typeText;
 
+/* navigation */
+
 function nextStep(n){
 for(let x=1;x<=8;x++){
 let s=document.getElementById("s"+x);
@@ -340,7 +356,6 @@ document.getElementById("s"+n).style.display="block";
 
 function lightsOn(){
 document.body.classList.add("pink");
-createHearts();
 nextStep(5);
 }
 
@@ -348,6 +363,8 @@ function playSheky(){
 document.getElementById("sheky").play();
 nextStep(6);
 }
+
+/* decorate */
 
 function decorate(){
 
@@ -358,11 +375,14 @@ banner.classList.add("bannerDrop");
 
 setTimeout(()=>{
 banner.classList.add("bannerSwing");
+banner.classList.add("lights");
 },800);
 
 nextStep(7);
 
 }
+
+/* balloons */
 
 function flyBalloons(){
 
@@ -374,17 +394,18 @@ b.innerHTML="🎈";
 
 b.style.left=Math.random()*100+"vw";
 b.style.bottom="-30px";
-b.style.animationDuration=(5+Math.random()*3)+"s";
 
 document.body.appendChild(b);
 
-setTimeout(()=>{b.remove()},8000);
+setTimeout(()=>b.remove(),8000);
 
 },700);
 
 nextStep(8);
 
 }
+
+/* cake */
 
 function showCake(){
 
@@ -395,18 +416,17 @@ let cake=document.getElementById("cake");
 cake.style.display="block";
 cake.classList.add("pop");
 
-/* popup after 4 seconds */
-
 setTimeout(()=>{
 document.getElementById("popupPhotoIntro").style.display="block";
 },4000);
 
 }
 
+/* photo */
+
 function showPhoto(){
 
 document.getElementById("popupPhotoIntro").style.display="none";
-
 document.getElementById("photoPopup").style.display="block";
 
 let sheky=document.getElementById("sheky");
@@ -415,14 +435,13 @@ sheky.currentTime=0;
 
 document.getElementById("pretty").play();
 
-createHearts();
-
 }
+
+/* message */
 
 function showMessagePopup(){
 
 document.getElementById("photoPopup").style.display="none";
-
 document.getElementById("popupMsg").style.display="block";
 
 }
@@ -441,6 +460,8 @@ startFloatingHearts();
 
 }
 
+/* floating hearts forever */
+
 function startFloatingHearts(){
 
 setInterval(()=>{
@@ -451,32 +472,16 @@ h.innerHTML="💗";
 
 h.style.left=Math.random()*100+"vw";
 h.style.bottom="-20px";
-h.style.animationDuration=(6+Math.random()*4)+"s";
 
 document.body.appendChild(h);
 
-setTimeout(()=>{h.remove()},8000);
+setTimeout(()=>h.remove(),8000);
 
 },800);
 
 }
 
-function createHearts(){
-
-for(let x=0;x<15;x++){
-
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="💗";
-
-h.style.left=Math.random()*100+"vw";
-h.style.bottom="-20px";
-
-document.body.appendChild(h);
-
-}
-
-}
+/* confetti */
 
 function createConfetti(){
 
@@ -490,29 +495,38 @@ c.style.background="hsl("+Math.random()*360+",70%,60%)";
 
 document.body.appendChild(c);
 
-setTimeout(()=>{c.remove()},4000);
+setTimeout(()=>c.remove(),4000);
 
 },150);
 
 }
 
-document.addEventListener("click",function(e){
+/* tap hearts */
 
-for(let i=0;i<5;i++){
+function spawnHearts(x,y){
+
+for(let i=0;i<6;i++){
 
 let heart=document.createElement("div");
 heart.className="heart";
 heart.innerHTML="💗";
 
-heart.style.left=e.clientX+"px";
-heart.style.top=e.clientY+"px";
+heart.style.left=(x + Math.random()*30 -15)+"px";
+heart.style.top=(y + Math.random()*30 -15)+"px";
 
 document.body.appendChild(heart);
 
-setTimeout(()=>{heart.remove()},3000);
+setTimeout(()=>heart.remove(),3000);
 
 }
 
+}
+
+document.addEventListener("click",e=>spawnHearts(e.clientX,e.clientY));
+
+document.addEventListener("touchstart",e=>{
+let t=e.touches[0];
+spawnHearts(t.clientX,t.clientY);
 });
 
 </script>
