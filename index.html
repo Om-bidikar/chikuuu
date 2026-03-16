@@ -32,8 +32,6 @@ width:90%;
 max-width:360px;
 }
 
-/* buttons */
-
 button{
 margin-top:18px;
 padding:12px 26px;
@@ -105,7 +103,7 @@ animation:cakePop .6s ease;
 position:fixed;
 font-size:32px;
 bottom:-60px;
-animation:balloonUp 7s linear forwards;
+animation:balloonUp 9s linear forwards;
 z-index:999;
 }
 
@@ -125,6 +123,20 @@ animation:heartFloat 3s forwards;
 @keyframes heartFloat{
 0%{transform:translateY(0);opacity:1}
 100%{transform:translateY(-120px);opacity:0}
+}
+
+/* confetti */
+
+.confetti{
+position:fixed;
+width:8px;
+height:8px;
+animation:fall 4s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh)}
+100%{transform:translateY(110vh)}
 }
 
 /* popup */
@@ -307,6 +319,19 @@ setTimeout(()=>h.remove(),3000);
 }
 }
 
+/* confetti */
+
+function createConfetti(){
+setInterval(()=>{
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.background="hsl("+Math.random()*360+",70%,60%)";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),4000);
+},150);
+}
+
 /* lights */
 
 function lightsOn(){
@@ -337,6 +362,7 @@ banner.classList.add("bannerSwing");
 
 burstHearts();
 nextStep(7);
+
 }
 
 /* balloons */
@@ -353,17 +379,13 @@ let balloon=document.createElement("div");
 balloon.className="balloon";
 balloon.innerHTML="🎈";
 
-if(i%2===0){
-balloon.style.left="5vw";
-}else{
-balloon.style.left="90vw";
-}
+balloon.style.left=Math.random()*100+"vw";
 
 document.body.appendChild(balloon);
 
-setTimeout(()=>balloon.remove(),8000);
+setTimeout(()=>balloon.remove(),9000);
 
-},i*300);
+},i*350);
 
 }
 
@@ -401,12 +423,12 @@ burstHearts();
 
 }
 
-/* message */
-
 function showMessagePopup(){
 document.getElementById("photoPopup").style.display="none";
 document.getElementById("popupMsg").style.display="block";
 }
+
+/* final message */
 
 function showMessage(){
 
@@ -416,6 +438,8 @@ document.getElementById("banner").style.display="none";
 document.getElementById("letterPage").style.display="block";
 
 burstHearts();
+createConfetti();
+
 }
 
 /* hearts on tap */
