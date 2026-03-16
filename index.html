@@ -5,7 +5,6 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>For My Chiku ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
@@ -50,9 +49,10 @@ cursor:pointer;
 
 #banner{
 display:none;
-width:330px;
-margin-top:-15px;
-margin-bottom:10px;
+width:350px;
+position:relative;
+top:-80px;
+margin-bottom:-40px;
 transform-origin:top center;
 }
 
@@ -80,7 +80,7 @@ animation:swingBanner 3s ease-in-out infinite alternate;
 #cake{
 display:none;
 width:260px;
-margin-top:20px;
+margin-top:10px;
 }
 
 .pop{
@@ -395,9 +395,11 @@ let cake=document.getElementById("cake");
 cake.style.display="block";
 cake.classList.add("pop");
 
+/* popup after 4 seconds */
+
 setTimeout(()=>{
 document.getElementById("popupPhotoIntro").style.display="block";
-},2000);
+},4000);
 
 }
 
@@ -439,8 +441,6 @@ startFloatingHearts();
 
 }
 
-/* floating hearts forever */
-
 function startFloatingHearts(){
 
 setInterval(()=>{
@@ -471,7 +471,6 @@ h.innerHTML="💗";
 
 h.style.left=Math.random()*100+"vw";
 h.style.bottom="-20px";
-h.style.animationDuration=(6+Math.random()*4)+"s";
 
 document.body.appendChild(h);
 
@@ -496,8 +495,6 @@ setTimeout(()=>{c.remove()},4000);
 },150);
 
 }
-
-/* hearts on tap */
 
 document.addEventListener("click",function(e){
 
