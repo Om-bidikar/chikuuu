@@ -92,19 +92,19 @@ animation:cakePop .6s ease;
 100%{transform:scale(1)}
 }
 
-/* balloons FIXED */
+/* balloons */
 
 .balloon{
 position:fixed;
-font-size:30px;
+font-size:32px;
+bottom:-50px;
+animation:balloonUp 7s linear forwards;
 z-index:999;
-pointer-events:none;
-animation:balloonUp linear forwards;
 }
 
 @keyframes balloonUp{
-0%{transform:translateY(100vh)}
-100%{transform:translateY(-120vh)}
+0%{transform:translateY(0)}
+100%{transform:translateY(-130vh)}
 }
 
 /* hearts */
@@ -276,6 +276,8 @@ document.getElementById("startBtn").style.display="inline-block";
 
 window.onload=typeText;
 
+/* navigation */
+
 function nextStep(n){
 for(let x=1;x<=8;x++){
 let s=document.getElementById("s"+x);
@@ -284,15 +286,43 @@ if(s) s.style.display="none";
 document.getElementById("s"+n).style.display="block";
 }
 
+/* burst hearts */
+
+function burstHearts(){
+
+for(let i=0;i<25;i++){
+
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💗";
+
+h.style.left=Math.random()*100+"vw";
+h.style.top=Math.random()*100+"vh";
+
+document.body.appendChild(h);
+
+setTimeout(()=>h.remove(),3000);
+
+}
+
+}
+
+/* lights */
+
 function lightsOn(){
 document.body.classList.add("pink");
+burstHearts();
 nextStep(5);
 }
+
+/* music */
 
 function playSheky(){
 document.getElementById("sheky").play();
 nextStep(6);
 }
+
+/* decorate */
 
 function decorate(){
 
@@ -305,31 +335,45 @@ setTimeout(()=>{
 banner.classList.add("bannerSwing");
 },800);
 
+burstHearts();
+
 nextStep(7);
 
 }
 
-/* balloons */
+/* balloons from both sides */
 
 function flyBalloons(){
 
 nextStep(8);
 
-setInterval(()=>{
+for(let i=0;i<20;i++){
+
+setTimeout(()=>{
 
 let balloon=document.createElement("div");
 balloon.className="balloon";
 balloon.innerHTML="🎈";
 
-balloon.style.left=Math.random()*100+"vw";
+/* alternate left and right */
+
+if(i%2===0){
+balloon.style.left="5vw";
+}else{
+balloon.style.left="90vw";
+}
 
 document.body.appendChild(balloon);
 
 setTimeout(()=>balloon.remove(),8000);
 
-},500);
+},i*300);
 
 }
+
+}
+
+/* cake */
 
 function showCake(){
 
@@ -338,6 +382,8 @@ document.getElementById("s8").style.display="none";
 let cake=document.getElementById("cake");
 cake.style.display="block";
 cake.classList.add("pop");
+
+burstHearts();
 
 setTimeout(()=>{
 document.getElementById("popupPhotoIntro").style.display="block";
@@ -352,6 +398,8 @@ document.getElementById("photoPopup").style.display="block";
 
 document.getElementById("sheky").pause();
 document.getElementById("pretty").play();
+
+burstHearts();
 
 }
 
@@ -370,9 +418,11 @@ document.getElementById("banner").style.display="none";
 
 document.getElementById("letterPage").style.display="block";
 
+burstHearts();
+
 }
 
-/* hearts */
+/* hearts on tap */
 
 function spawnHearts(x,y){
 
