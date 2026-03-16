@@ -5,7 +5,6 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>For My Chiku ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
@@ -54,11 +53,29 @@ width:260px;
 margin:15px auto;
 }
 
+.bannerDrop{
+animation:dropBanner .8s ease;
+}
+
+@keyframes dropBanner{
+0%{
+transform:translateY(-200px);
+opacity:0;
+}
+70%{
+transform:translateY(20px);
+}
+100%{
+transform:translateY(0);
+opacity:1;
+}
+}
+
 /* cake */
 
 #cake{
 display:none;
-width:240px;
+width:250px;
 margin:15px auto;
 }
 
@@ -77,18 +94,13 @@ animation:cakePop .6s ease;
 .balloon{
 position:absolute;
 font-size:28px;
-animation:floatUp 7s linear forwards,
-sway 2s ease-in-out infinite alternate;
+animation:balloonUp linear forwards;
 }
 
-@keyframes floatUp{
+@keyframes balloonUp{
 0%{transform:translateY(0)}
-100%{transform:translateY(-120vh)}
-}
-
-@keyframes sway{
-from{transform:translateX(-10px)}
-to{transform:translateX(10px)}
+50%{transform:translateY(-50vh) translateX(-15px)}
+100%{transform:translateY(-110vh) translateX(15px)}
 }
 
 /* hearts */
@@ -96,32 +108,38 @@ to{transform:translateX(10px)}
 .heart{
 position:absolute;
 font-size:20px;
-animation:floatUp linear forwards;
+animation:heartUp linear forwards;
 }
 
-/* popups */
+@keyframes heartUp{
+0%{transform:translateY(0)}
+100%{transform:translateY(-120vh)}
+}
+
+/* popup */
 
 .popup{
 position:fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-background:white;
-padding:20px;
-border-radius:15px;
-box-shadow:0 10px 30px rgba(0,0,0,.4);
+background:linear-gradient(135deg,#7b6cff,#a88cff);
+padding:22px;
+border-radius:18px;
+box-shadow:0 15px 40px rgba(0,0,0,.35);
 display:none;
 z-index:100;
 max-width:300px;
+color:white;
 }
 
 #photoPopup img{
 width:240px;
-border-radius:15px;
-margin-top:10px;
+border-radius:14px;
+margin-top:12px;
 }
 
-/* letter page */
+/* message page */
 
 #letterPage{
 display:none;
@@ -147,7 +165,7 @@ color:white;
 
 .letter h2{
 margin-top:0;
-margin-bottom:12px;
+margin-bottom:10px;
 font-size:22px;
 }
 
@@ -211,7 +229,7 @@ animation:fall 4s linear infinite;
 <img src="cake.png" id="cake">
 
 <div class="popup" id="popupPhotoIntro">
-<h3>I have one more surprise for my cute little cupcake 🧁❤️</h3>
+<h3>One more surprise for my cute little cupcake 🧁💗</h3>
 <button onclick="showPhoto()">Open</button>
 </div>
 
@@ -221,13 +239,15 @@ animation:fall 4s linear infinite;
 
 <img src="chiku.jpg">
 
+<p>My little cupcake ✨</p>
+
 <button onclick="showMessagePopup()">Next</button>
 
 </div>
 
 <div class="popup" id="popupMsg">
 
-<h3>I have a message for you cupcake 💌</h3>
+<h3>I have a message for you 💌</h3>
 
 <button onclick="showMessage()">Open</button>
 
@@ -241,20 +261,19 @@ animation:fall 4s linear infinite;
 
 <p>
 
-Out of all the days in the year, this one is special to me because it's the day you were born. 🎂✨
+Out of all the days in the year, this one is special because it's the day you were born 🎂✨
 
 <br><br>
 
-The world became a little brighter that day.
-And honestly, anyone who gets to know you is lucky.
+The world became brighter that day and honestly anyone who gets to know you is lucky.
 
 <br><br>
 
-Your smile, your kindness, and the way you care about people makes you someone really special.
+Your smile, your kindness, and the way you care about people makes you truly special.
 
 <br><br>
 
-I hope this birthday fills your life with happiness, beautiful memories, and dreams slowly coming true. 💫
+I hope this birthday fills your life with happiness, beautiful memories and dreams slowly coming true 💫
 
 <br><br>
 
@@ -322,7 +341,12 @@ nextStep(6);
 }
 
 function decorate(){
-document.getElementById("banner").style.display="block";
+
+let banner=document.getElementById("banner");
+
+banner.style.display="block";
+banner.classList.add("bannerDrop");
+
 nextStep(7);
 }
 
@@ -432,21 +456,23 @@ setTimeout(()=>{c.remove()},4000);
 
 }
 
+/* hearts on every tap */
+
 document.addEventListener("click",function(e){
 
-for(let i=0;i<6;i++){
+for(let i=0;i<5;i++){
 
 let heart=document.createElement("div");
 heart.className="heart";
 heart.innerHTML="💗";
 
-heart.style.left=(e.clientX + Math.random()*40 -20)+"px";
-heart.style.top=(e.clientY)+"px";
-heart.style.animationDuration=(3+Math.random()*2)+"s";
+heart.style.left=e.clientX+"px";
+heart.style.top=e.clientY+"px";
+heart.style.animationDuration="3s";
 
 document.body.appendChild(heart);
 
-setTimeout(()=>{heart.remove()},4000);
+setTimeout(()=>{heart.remove()},3000);
 
 }
 
