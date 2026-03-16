@@ -32,8 +32,6 @@ width:90%;
 max-width:360px;
 }
 
-/* buttons */
-
 button{
 margin-top:18px;
 padding:12px 26px;
@@ -94,16 +92,18 @@ animation:cakePop .6s ease;
 100%{transform:scale(1)}
 }
 
-/* balloons */
+/* balloons FIXED */
 
 .balloon{
 position:fixed;
 font-size:30px;
+z-index:999;
+pointer-events:none;
 animation:balloonUp linear forwards;
 }
 
 @keyframes balloonUp{
-0%{transform:translateY(0)}
+0%{transform:translateY(100vh)}
 100%{transform:translateY(-120vh)}
 }
 
@@ -141,8 +141,6 @@ width:220px;
 border-radius:12px;
 margin-top:10px;
 }
-
-/* message */
 
 #letterPage{
 display:none;
@@ -278,8 +276,6 @@ document.getElementById("startBtn").style.display="inline-block";
 
 window.onload=typeText;
 
-/* navigation */
-
 function nextStep(n){
 for(let x=1;x<=8;x++){
 let s=document.getElementById("s"+x);
@@ -288,43 +284,15 @@ if(s) s.style.display="none";
 document.getElementById("s"+n).style.display="block";
 }
 
-/* HEART BURST */
-
-function burstHearts(){
-
-for(let i=0;i<25;i++){
-
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="💗";
-
-h.style.left=Math.random()*100+"vw";
-h.style.top=Math.random()*100+"vh";
-
-document.body.appendChild(h);
-
-setTimeout(()=>h.remove(),3000);
-
-}
-
-}
-
-/* lights */
-
 function lightsOn(){
 document.body.classList.add("pink");
-burstHearts();
 nextStep(5);
 }
-
-/* music */
 
 function playSheky(){
 document.getElementById("sheky").play();
 nextStep(6);
 }
-
-/* decorate */
 
 function decorate(){
 
@@ -336,8 +304,6 @@ banner.classList.add("bannerDrop");
 setTimeout(()=>{
 banner.classList.add("bannerSwing");
 },800);
-
-burstHearts();
 
 nextStep(7);
 
@@ -356,7 +322,6 @@ balloon.className="balloon";
 balloon.innerHTML="🎈";
 
 balloon.style.left=Math.random()*100+"vw";
-balloon.style.bottom="-20px";
 
 document.body.appendChild(balloon);
 
@@ -366,8 +331,6 @@ setTimeout(()=>balloon.remove(),8000);
 
 }
 
-/* cake */
-
 function showCake(){
 
 document.getElementById("s8").style.display="none";
@@ -376,15 +339,11 @@ let cake=document.getElementById("cake");
 cake.style.display="block";
 cake.classList.add("pop");
 
-burstHearts();
-
 setTimeout(()=>{
 document.getElementById("popupPhotoIntro").style.display="block";
 },4000);
 
 }
-
-/* photo */
 
 function showPhoto(){
 
@@ -393,8 +352,6 @@ document.getElementById("photoPopup").style.display="block";
 
 document.getElementById("sheky").pause();
 document.getElementById("pretty").play();
-
-burstHearts();
 
 }
 
@@ -409,17 +366,13 @@ function showMessage(){
 
 document.getElementById("popupMsg").style.display="none";
 
-/* hide banner */
-
 document.getElementById("banner").style.display="none";
 
 document.getElementById("letterPage").style.display="block";
 
-burstHearts();
-
 }
 
-/* hearts on tap */
+/* hearts */
 
 function spawnHearts(x,y){
 
