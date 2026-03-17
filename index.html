@@ -53,8 +53,6 @@ color:white;
 font-size:16px;
 cursor:pointer;
 transition:transform .15s;
-
-/* ✅ FIX */
 position:relative;
 z-index:1001;
 }
@@ -240,57 +238,57 @@ text-shadow: 0 0 8px rgba(255,215,0,0.7);
 
 <div id="s1">
 <h2 id="typing" class="handwriting" style="color:white"></h2>
-<button id="startBtn" onclick="nextStep(2)" style="display:none">Next ❤️</button>
+<button onclick="nextStep(2); event.stopPropagation();" id="startBtn" style="display:none">Next ❤️</button>
 </div>
 
 <div id="s2" style="display:none">
 <h2 style="color:white">I made something special for you ✨</h2>
-<button onclick="nextStep(3)">Next</button>
+<button onclick="nextStep(3); event.stopPropagation();">Next</button>
 </div>
 
 <div id="s3" style="display:none">
 <h2 style="color:white">Do you wanna see it? 😊</h2>
-<button onclick="nextStep(4)">Yes!</button>
+<button onclick="nextStep(4); event.stopPropagation();">Yes!</button>
 </div>
 
 <div id="s4" style="display:none">
 <h2 style="color:white">Have a look Madam Ji 👀</h2>
-<button onclick="lightsOn()">Lights On 💡</button>
+<button onclick="lightsOn(); event.stopPropagation();">Lights On 💡</button>
 </div>
 
 <div id="s5" style="display:none">
-<button onclick="playSheky()">Play Music 🎶</button>
+<button onclick="playSheky(); event.stopPropagation();">Play Music 🎶</button>
 </div>
 
 <div id="s6" style="display:none">
-<button onclick="decorate()">Decorate 🎉</button>
+<button onclick="decorate(); event.stopPropagation();">Decorate 🎉</button>
 </div>
 
 <div id="s7" style="display:none">
-<button onclick="flyBalloons()">Fly Balloons 🎈</button>
+<button onclick="flyBalloons(); event.stopPropagation();">Fly Balloons 🎈</button>
 </div>
 
 <div id="s8" style="display:none">
-<button onclick="showCake()">Cut the Cake 🎂</button>
+<button onclick="showCake(); event.stopPropagation();">Cut the Cake 🎂</button>
 </div>
 
 <img src="cake.png" id="cake">
 
 <div class="popup" id="popupPhotoIntro">
 <h3>One more surprise for my cute little cupcake 🧁💗</h3>
-<button onclick="showPhoto()">Open</button>
+<button onclick="showPhoto(); event.stopPropagation();">Open</button>
 </div>
 
 <div class="popup" id="photoPopup">
 <h3>Look who's special today 💖</h3>
 <img src="chiku.jpg">
 <p>My little cupcake ✨</p>
-<button onclick="showMessagePopup()">Next</button>
+<button onclick="showMessagePopup(); event.stopPropagation();">Next</button>
 </div>
 
 <div class="popup" id="popupMsg">
 <h3>I have a message for you 💌</h3>
-<button onclick="showMessage()">Open</button>
+<button onclick="showMessage(); event.stopPropagation();">Open</button>
 </div>
 
 <div id="letterPage">
@@ -457,7 +455,7 @@ launchFireworks();
 setTimeout(()=>{
 clearInterval(balloonInterval);
 document.getElementById("popupPhotoIntro").style.display="block";
-},15000); // ✅ updated
+},15000);
 
 }
 
@@ -504,7 +502,7 @@ setTimeout(()=>h.remove(),3000);
 }
 
 document.addEventListener("click",e=>{
-if(e.target.tagName==="BUTTON") return;
+if(e.target.closest("button")) return;
 spawnHearts(e.clientX,e.clientY);
 });
 
