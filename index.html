@@ -53,6 +53,10 @@ color:white;
 font-size:16px;
 cursor:pointer;
 transition:transform .15s;
+
+/* ✅ FIX */
+position:relative;
+z-index:1001;
 }
 
 button:active{
@@ -159,7 +163,6 @@ animation:fall 4s linear forwards;
 100%{transform:translateY(110vh)}
 }
 
-/* 🎆 FIREWORK */
 .firework{
 position:fixed;
 width:6px;
@@ -389,7 +392,6 @@ setTimeout(()=>h.remove(),9000);
 },1800);
 }
 
-/* 🎆 FIREWORK FUNCTION */
 function launchFireworks(){
 for(let i=0;i<25;i++){
 setTimeout(()=>{
@@ -450,14 +452,12 @@ cake.style.display="block";
 cake.classList.add("pop");
 
 burstHearts();
-
-/* 🎆 FIREWORKS TRIGGER */
 launchFireworks();
 
 setTimeout(()=>{
 clearInterval(balloonInterval);
 document.getElementById("popupPhotoIntro").style.display="block";
-},9000);
+},15000); // ✅ updated
 
 }
 
